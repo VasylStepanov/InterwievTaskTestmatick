@@ -17,6 +17,14 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
+def apiTest = tasks.register("unitTests", Test) {
+    useJUnitPlatform {
+        includeTags "Unit"
+    }
+}
+
+
+
 test {
     useJUnitPlatform()
 }
