@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  jenkins:
+    container_name: testmatick_jenkins
+    image: jenkins/jenkins:2.440.2-jdk17
+    ports:
+      - "8000:8080"
+    environment:
+      DOCKER_HOST: tcp://docker:2376
+      DOCKER_CERT_PATH: /certificates/client
+      DOCKER_TLS_VERIFY: 1
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - docker-certs:/certificates/client:ro
+    depends_on:
+      - docker
+    networks:
+      - testmatick
+  docker:
+    container_name: testmatick_docker
+    image: docker:dind
+    privileged: true
+    environment:
+      DOCKER_TLS_CERTDIR: /certificates
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - docker-certs:/certificates/client
+      - docker-data:/var/lib/docker
+    networks:
+      - testmatick
+volumes:
+  jenkins-data:
+  docker-certs:
+  docker-data:
+networks:
+  testmatick:
