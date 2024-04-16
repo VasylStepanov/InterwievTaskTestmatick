@@ -11,3 +11,5 @@ We need to generate a random set of figures, the number of objects in the set is
 - Init commit
 
 - Add jenkins
+
+- Task is finished
